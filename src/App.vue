@@ -5,7 +5,7 @@
     <!-- 路由组件展示区域 -->
     <router-view></router-view>
     <!-- 下部组件 -->
-    <Footer></Footer>
+    <Footer v-show="!$route.meta.isHidden"></Footer>
   </div>
 </template>
 
@@ -18,7 +18,12 @@ export default {
   components:{
     Header,
     Footer
-  }
+  },
+  // computed:{
+  //   isShow(){
+  //     return this.$route.path !== '/login' && this.$route.path !== '/register'
+  //   }
+  // }
 }
 </script>
 
