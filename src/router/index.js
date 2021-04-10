@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-10 13:03:29
- * @LastEditTime: 2021-04-10 13:07:07
+ * @LastEditTime: 2021-04-10 13:50:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \gulishop-client\src\router\index.js
@@ -42,5 +42,9 @@ export default new VueRouter({
             path:'/Search',
             component:Search
         },
+        {
+            path:'/*',
+            redirect:'/home'
+        }
     ]
 })
