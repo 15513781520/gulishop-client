@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-04-10 21:33:27
- * @LastEditTime: 2021-04-10 22:19:11
+ * @LastEditTime: 2021-04-11 22:50:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \gulishop-client\src\router\routes.js
@@ -17,14 +17,14 @@ export default [{
         component: Home
     },
     {
-        path: '/Register',
+        path: '/register',
         component: Register,
         meta:{
             isHidden:true
         }
     },
     {
-        path: '/Login',
+        path: '/login',
         component: Login,
         meta:{
             isHidden:true
@@ -32,7 +32,7 @@ export default [{
     },
     {
         name: 'search',
-        path: '/Search/:keyword?',
+        path: '/search/:keyword?',
         component: Search,
         props(route) {
             return {
