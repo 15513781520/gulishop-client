@@ -16,8 +16,20 @@ import home from './home'
 //声明使用 vuex
 vue.use(Vuex)
 
+//初始化 state
+const state = {}
+
+//创建 mutations 对象
+const mutations = {}
+
+//创建 actions 对象
+const actions = {}
+
 //创建 store 对象
 const store = new Vuex.Store({
+    state,
+    mutations,
+    actions,
     modules:{
         home
     }

@@ -57,8 +57,13 @@ import { mapState } from 'vuex';
 				categoryList:state => state.home.categoryList
 			})
 		},
+		methods:{
+			getCategoryList(){
+				this.$store.dispatch('getCategoryList')
+			}
+		},
 		mounted(){
-			this.$store.dispatch('getCategoryList')
+			this.getCategoryList()
 		}
 	};
 </script>
