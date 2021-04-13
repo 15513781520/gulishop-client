@@ -72,7 +72,7 @@
 					name:'search',
 					//当用户输入为空时，传递的
 					params:{keyword:this.keyword || undefined},
-					query:{keyword1:this.keyword.toUpperCase()}
+					query:this.$route.query
 				})
 			}
 		}

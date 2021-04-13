@@ -7,19 +7,18 @@
  * @FilePath: \gulishop-client\src\pages\Home\index.vue
 -->
 <template>
-  <div>
-      <h2>Search --- {{$route.params.keyword}} --- {{$route.query.keyword1}}</h2>
-      <h2>Search --- {{keyword}} --- {{keyword1}}</h2>
-  </div>
+	<div>
+		<TypeNav></TypeNav>
+	</div>
 </template>
 
 <script>
-export default {
-  name: 'Search',
-  props:['keyword','keyword1']
-}
+	export default {
+		name: "Search",
+		props: ["keyword"],
+		mounted() {},
+	};
 </script>
 
 <style lang="less" scoped>
-
 </style>
