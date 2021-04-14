@@ -39,6 +39,7 @@
 							//是否开启自动轮播
 							autoplay: {
 								delay: 2000, //自动轮播的停留时间
+								disableOnInteraction: false,
 							},
 							// 如果需要分页器
 							pagination: {
