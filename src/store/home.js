@@ -8,26 +8,48 @@
  */
 
 //引入reqCategoryList接口请求函数
-import {reqCategoryList} from '@/api'
+import {getBannerList, getFloorList, reqCategoryList} from '@/api'
 
 
 //初始化 state
 const state = {
-    categoryList:[]
+    categoryList:[],
+    bannerList:[],
+    floorList:[]
 }
 //创建 mutations 对象
 const mutations = {
+    //三级分类数据的 mutations
     RECEIVE_CATEGORYLIST(state,categoryList){
         //将收到的 三级分类 数据保存到state
         state.categoryList = categoryList
+    },
+    //轮播图
+    RECEIVE_BANNERLIST(state,bannerList){
+        state.bannerList = bannerList
+    },
+    //楼层
+    RECEIVER_FLOORLIST(state,floorList){
+        state.floorList = floorList
     }
 }
 //创建 actions 对象
 const actions = {
+    //三级分类数据
     async getCategoryList({commit}){
         //调用接口请求函数发送请求获取数据
         const result = await reqCategoryList()
         commit('RECEIVE_CATEGORYLIST',result.data)
+    },
+    //轮播图
+    async getBannerList({commit}){
+        const result = await getBannerList()
+        commit('RECEIVE_BANNERLIST',result.data)
+    },
+    //楼层
+    async getFloorList({commit}){
+        const result = await getFloorList()
+        commit('RECEIVER_FLOORLIST',result.data)
     }
 }
 

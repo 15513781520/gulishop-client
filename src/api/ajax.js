@@ -37,7 +37,7 @@ service.interceptors.response.use((response) => {
     //关闭进度条
     Nprogress.done()
     //统一处理错误
-    console.log('请求失败：' + error.message);
+    alert('请求失败：' + error.message);
     return new Promise(() => {})
 })
 
