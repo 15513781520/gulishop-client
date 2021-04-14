@@ -44,12 +44,16 @@ const actions = {
     //轮播图
     async getBannerList({commit}){
         const result = await getBannerList()
-        commit('RECEIVE_BANNERLIST',result.data)
+        if(result.code === 200){
+            commit('RECEIVE_BANNERLIST',result.data)
+        }
     },
     //楼层
     async getFloorList({commit}){
         const result = await getFloorList()
-        commit('RECEIVER_FLOORLIST',result.data)
+        if(result.code === 200){
+            commit('RECEIVER_FLOORLIST',result.data)
+        }
     }
 }
 
