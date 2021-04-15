@@ -1,24 +1,26 @@
-# gulishop-clientt
+# 谷粒商城
 
-## Project setup
+## 依赖安装
 ```
+npm i
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 通过命令启动项目
 ```
-yarn serve
+npm run dev
+yarn dev
 ```
 
-### Compiles and minifies for production
+### 通过命令打包项目
 ```
+npm run build
 yarn build
 ```
 
-### Lints and fixes files
+### 语法检查
 ```
+npm run lint
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
