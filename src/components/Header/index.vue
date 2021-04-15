@@ -17,7 +17,9 @@
 					<p>
 						<span>请</span>
 						<router-link to="/login">登录</router-link>
-						<router-link to="register" class="register">免费注册</router-link>
+						<router-link to="register" class="register"
+							>免费注册</router-link
+						>
 					</p>
 				</div>
 				<div class="typeList">
@@ -45,9 +47,13 @@
 						type="text"
 						id="autocomplete"
 						class="input-error input-xxlarge"
-						v-model='keyword'
+						v-model="keyword"
 					/>
-					<button class="sui-btn btn-xlarge btn-danger" type="button" @click='toSearch'>
+					<button
+						class="sui-btn btn-xlarge btn-danger"
+						type="button"
+						@click="toSearch"
+					>
 						搜索
 					</button>
 				</form>
@@ -59,23 +65,27 @@
 <script>
 	export default {
 		name: "Header",
-		data(){
+		data() {
 			return {
-				keyword:''
-			}
+				keyword: "",
+			};
 		},
-		methods:{
-			toSearch(){
-				console.log(this);
-				// toSearch中调用 $route.push 方法修改路径
-				this.$router.push({
-					name:'search',
+		methods: {
+			toSearch() {
+				//声明一个 location 对象
+				const location = {
+					name: "search",
 					//当用户输入为空时，传递的
-					params:{keyword:this.keyword || undefined},
-					query:this.$route.query
-				})
-			}
-		}
+					params: { keyword: this.keyword || undefined },
+				};
+				//判断当前 路由对象 中是否有 query 参数,有就讲 params 一起带上
+				if(this.$route.query){//这里的判断其实是没有意义的，因为没有query参数query也会是个空对象，这里恒等于true
+					location.query = this.$route.query
+				}
+				// toSearch中调用 $route.push 方法修改路径
+				this.$router.push(location);
+			},
+		},
 	};
 </script>
 

@@ -22,13 +22,13 @@ export const reqCategoryList = () => {
 //mock 模拟请求轮播图数据
 //url: /mock/banner
 //get
-export const getBannerList = function(){
+export const reqBannerList = function(){
     return mockAxios.get('/banner')
 }
 
 //mock 模拟请求楼层数据
 //url: /mock/floor
 //get
-export const getFloorList = function(){
+export const reqFloorList = function(){
     return mockAxios.get('/floor')
 }

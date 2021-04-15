@@ -145,7 +145,9 @@
 					//将确定后的query对象赋值给location的query属性
 					loaction.query = query;
 					//判断当前 路有对象 中是否有 params 参数，如果有则把 query 参数添加到这次 push 中
-					loaction.params = this.$route.params
+					if (this.$route.params) {
+						loaction.params = this.$route.params;
+					}
 					//调用 push 切换路由
 					this.$router.push(loaction);
 				}

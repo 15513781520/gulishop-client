@@ -8,7 +8,7 @@
  */
 
 //引入reqCategoryList接口请求函数
-import {getBannerList, getFloorList, reqCategoryList} from '@/api'
+import {reqBannerList, reqFloorList, reqCategoryList} from '@/api'
 
 
 //初始化 state
@@ -43,14 +43,14 @@ const actions = {
     },
     //轮播图
     async getBannerList({commit}){
-        const result = await getBannerList()
+        const result = await reqBannerList()
         if(result.code === 200){
             commit('RECEIVE_BANNERLIST',result.data)
         }
     },
     //楼层
     async getFloorList({commit}){
-        const result = await getFloorList()
+        const result = await reqFloorList()
         if(result.code === 200){
             commit('RECEIVER_FLOORLIST',result.data)
         }

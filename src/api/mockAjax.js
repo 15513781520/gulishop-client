@@ -25,7 +25,7 @@ service.interceptors.response.use((response) => {
     return response.data
 },(error) => {
     nprogress.done()
-    alert('请求失败：',error.message)
+    alert('请求失败：' + error.message || '未知错误')
     return new Promise(() => {}) //返回一个 pedding 状态的 promise 中断 promise 链条
 })
 
