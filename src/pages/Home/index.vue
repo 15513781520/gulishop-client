@@ -44,6 +44,8 @@ export default {
   },
   mounted(){
     this.$store.dispatch('getFloorList')
+    //返回首页时默认清空 header组件中的输入框
+    this.$bus.$emit('clearKeyword')
   }
 }
 </script>
