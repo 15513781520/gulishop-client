@@ -32,3 +32,14 @@ export const reqBannerList = function(){
 export const reqFloorList = function(){
     return mockAxios.get('/floor')
 }
+
+// 搜索商品
+// url：/api/list
+// post
+export const reqGoodsListInfo = (searchParams) => {
+    return axios({
+        method:'post',
+        url:'/list',
+        data:searchParams
+    })
+}

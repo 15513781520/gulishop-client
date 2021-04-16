@@ -10,8 +10,10 @@
 import vue from 'vue'
 //引入 vuex
 import Vuex from 'vuex'
-//引入 home 的store 对象
+//引入 home 的 store 对象
 import home from './home'
+//引入 search 的 store 对象
+import search from './search'
 
 //声明使用 vuex
 vue.use(Vuex)
@@ -31,7 +33,8 @@ const store = new Vuex.Store({
     mutations,
     actions,
     modules:{
-        home
+        home,
+        search
     }
 })
 

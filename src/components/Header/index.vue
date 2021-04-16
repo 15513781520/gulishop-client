@@ -79,12 +79,17 @@
 					params: { keyword: this.keyword || undefined },
 				};
 				//判断当前 路由对象 中是否有 query 参数,有就讲 params 一起带上
-				if(this.$route.query){//这里的判断其实是没有意义的，因为没有query参数query也会是个空对象，这里恒等于true
-					location.query = this.$route.query
+				if (this.$route.query) {
+					//这里的判断其实是没有意义的，因为没有query参数query也会是个空对象，这里恒等于true
+					location.query = this.$route.query;
 				}
 				// toSearch中调用 $route.push 方法修改路径
 				this.$router.push(location);
 			},
+		},
+		mounted(){
+			//给 全局事件总线 绑定事件,事件被触发时，将输入框清空(因为输入框和keyword属性双向绑定了，所以清空输入框就是讲keyword属性赋值为空串)
+			this.$bus.$on('clearKeyword',() => {this.keyword = ''})
 		},
 	};
 </script>
