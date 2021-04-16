@@ -207,7 +207,7 @@
 				//forEach遍历对象，如果否个属性是空串就赋值为 undefined
 				Object.keys(searchParams).forEach((key) => {
 					if (searchParams[key] === "") {
-						searchParams[key] = undefined;
+						delete searchParams[key]
 					}
 				});
 				//将这个对象在赋值给 this.searchParams
