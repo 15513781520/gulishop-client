@@ -84,7 +84,11 @@
 					location.query = this.$route.query;
 				}
 				// toSearch中调用 $route.push 方法修改路径
-				this.$router.push(location);
+				if(this.$route.name !== 'search'){
+					this.$router.push(location);
+				}else{
+					this.$router.replace(location);
+				}
 			},
 		},
 		mounted(){

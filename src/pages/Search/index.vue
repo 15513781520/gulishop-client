@@ -20,11 +20,15 @@
 							}}<i @click="removeKeyword">×</i>
 						</li>
 						<li class="with-x" v-if="searchParams.trademark">
-							{{ searchParams.trademark.split(':')[1]
+							{{ searchParams.trademark.split(":")[1]
 							}}<i @click="removeTrademark">×</i>
 						</li>
-						<li class="with-x" v-for="(prop,index) in searchParams.props" :key="index">
-							{{ prop.split(':')[1]
+						<li
+							class="with-x"
+							v-for="(prop, index) in searchParams.props"
+							:key="prop"
+						>
+							{{ prop.split(":")[1]
 							}}<i @click="removeProp(index)">×</i>
 						</li>
 					</ul>
@@ -32,7 +36,10 @@
 
 				<!--selector-->
 				<!-- 为子组件绑定自定义事件 -->
-				<SearchSelector @searchForTrademark="searchForTrademark"  @searchForProp="searchForProp"/>
+				<SearchSelector
+					@searchForTrademark="searchForTrademark"
+					@searchForProp="searchForProp"
+				/>
 
 				<!--details-->
 				<div class="details clearfix">
@@ -207,7 +214,7 @@
 				//forEach遍历对象，如果否个属性是空串就赋值为 undefined
 				Object.keys(searchParams).forEach((key) => {
 					if (searchParams[key] === "") {
-						delete searchParams[key]
+						delete searchParams[key];
 					}
 				});
 				//将这个对象在赋值给 this.searchParams
@@ -224,45 +231,45 @@
 			removeKeyword() {
 				this.$router.replace({
 					name: "search",
-					query:this.$route.query
+					query: this.$route.query,
 				});
-				this.$bus.$emit('clearKeyword')
+				this.$bus.$emit("clearKeyword");
 			},
 			//自定义事件，根据品牌搜索商品事件回调
-			searchForTrademark(tm){
+			searchForTrademark(tm) {
 				//修改 搜索参数 中的 trademark 字段
-				this.searchParams.trademark = `${tm.tmId}:${tm.tmName}`
+				this.searchParams.trademark = `${tm.tmId}:${tm.tmName}`;
 				//重新发送请求
-				this.getGoodsListInfo()
+				this.getGoodsListInfo();
 			},
 			//删除品牌面包屑事件回调
-			removeTrademark(){
-				this.searchParams.trademark = undefined
-				this.getGoodsListInfo()
+			removeTrademark() {
+				this.searchParams.trademark = undefined;
+				this.getGoodsListInfo();
 			},
 			//自定义事件，根据商品属性搜索商品事件回调
-			searchForProp(attrValue,attr){
+			searchForProp(attrValue, attr) {
 				//["属性ID:属性值:属性名"]  示例: ["2:6.0～6.24英寸:屏幕尺寸"]
-				const prop = `${attr.attrId}:${attrValue}:${attr.attrName}`
+				const prop = `${attr.attrId}:${attrValue}:${attr.attrName}`;
 				//调用 some 方法查找 props 属性中是否已存在要搜索的属性
 				const isRepeat = this.searchParams.props.some((item) => {
-					return item === prop
-				})
+					return item === prop;
+				});
 				//判断 some 方法查找结果
 				//如果重复，终止函数调用
-				if(isRepeat){
-					return 
+				if (isRepeat) {
+					return;
 				}
 				//如果不重复，修改搜索参数
-				this.searchParams.props.push(prop)
+				this.searchParams.props.push(prop);
 				//发送请求搜索商品
-				this.getGoodsListInfo()
+				this.getGoodsListInfo();
 			},
 			//删除属性面包屑事件回调
-			removeProp(index){
-				this.searchParams.props.splice(index,1)
-				this.getGoodsListInfo()
-			}
+			removeProp(index) {
+				this.searchParams.props.splice(index, 1);
+				this.getGoodsListInfo();
+			},
 		},
 		//在这个钩子中解析路由参数并修改搜索参数里的数据，方便 mounted 中发送请求获取数据
 		beforeMount() {

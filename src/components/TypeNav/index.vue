@@ -127,7 +127,7 @@
 				} = event.target.dataset;
 				//如果 categoryname 有值则表示触发事件的是 a 标签
 				if (categoryname) {
-					const loaction = {
+					const location = {
 						name: "search",
 					};
 
@@ -143,13 +143,19 @@
 						query.category3Id = category3id;
 					}
 					//将确定后的query对象赋值给location的query属性
-					loaction.query = query;
+					location.query = query;
 					//判断当前 路有对象 中是否有 params 参数，如果有则把 query 参数添加到这次 push 中
 					if (this.$route.params) {
-						loaction.params = this.$route.params;
+						location.params = this.$route.params;
 					}
-					//调用 push 切换路由
-					this.$router.push(loaction);
+					// 根据当前路由对象中的路径判断当前处于哪个路由中
+					if (this.$route.name !== "search") {
+						//如果是 不是 search路由 调用push方法
+						this.$router.push(location);
+					} else {
+						//如果是 search 调用replace
+						this.$router.replace(location);
+					}
 				}
 			},
 			//鼠标移出 div 事件回调
