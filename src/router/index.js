@@ -18,11 +18,11 @@ import routes from './routes'
 //我们需要重写 push/replace 方法解决
 const originPush = VueRouter.prototype.push
 const originReplace = VueRouter.prototype.replace
-VueRouter.prototype.push = function(option,resolved,rejected){
-    if(resolved === undefined && rejected === undefined){
-        return originPush.call(this,option).catch(() => {})
-    }else{
-        return originPush.call(this,option,resolved,rejected)
+VueRouter.prototype.push = function (option, resolved, rejected) {
+    if (resolved === undefined && rejected === undefined) {
+        return originPush.call(this, option).catch(() => {})
+    } else {
+        return originPush.call(this, option, resolved, rejected)
     }
 }
 
@@ -31,7 +31,14 @@ Vue.use(VueRouter)
 
 //创建并暴露一个路由器对象
 export default new VueRouter({
-    mode:'history',
+    mode: 'history',
+    //路由滚动行为配置
+    scrollBehavior(to, from, savedPosition) {
+        return {
+            x: 0,
+            y: 0
+        }
+    },
     //注册路由
     routes
 })

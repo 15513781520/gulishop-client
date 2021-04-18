@@ -46,23 +46,33 @@
 					<div class="sui-navbar">
 						<div class="navbar-inner filter">
 							<ul class="sui-nav">
-								<li class="active">
-									<a href="#">综合</a>
+								<li :class="{ active: sortRule === '1' }">
+									<a href="javascript:;"
+										@click="changeSort('1')"
+										>综合<i
+											class="iconfont"
+											:class="
+												sortType === 'asc'
+													? 'iconup-arrow'
+													: 'icondown-arrow'
+											"
+											v-if="sortRule === '1'"
+										></i
+									></a>
 								</li>
-								<li>
-									<a href="#">销量</a>
-								</li>
-								<li>
-									<a href="#">新品</a>
-								</li>
-								<li>
-									<a href="#">评价</a>
-								</li>
-								<li>
-									<a href="#">价格⬆</a>
-								</li>
-								<li>
-									<a href="#">价格⬇</a>
+								<li :class="{ active: sortRule === '2' }">
+									<a href="javascript:;"
+										@click="changeSort('2')"
+										>价格<i
+											class="iconfont"
+											:class="
+												sortType === 'asc'
+													? 'iconup-arrow'
+													: 'icondown-arrow'
+											"
+											v-if="sortRule === '2'"
+										></i
+									></a>
 								</li>
 							</ul>
 						</div>
@@ -76,9 +86,9 @@
 							>
 								<div class="list-wrap">
 									<div class="p-img">
-										<a href="javascript:;" target="_blank"
+										<router-link :to="'/detail/' + goods.id"
 											><img :src="goods.defaultImg"
-										/></a>
+										/></router-link>
 									</div>
 									<div class="price">
 										<strong>
@@ -88,7 +98,7 @@
 									</div>
 									<div class="attr">
 										<a
-											href="javascript:;"
+											:to="'/detail/' + goods.id"
 											:title="goods.title"
 											>{{ goods.title }}</a
 										>
@@ -115,35 +125,20 @@
 							</li>
 						</ul>
 					</div>
-					<div class="fr page">
-						<div class="sui-pagination clearfix">
-							<ul>
-								<li class="prev disabled">
-									<a href="#">«上一页</a>
-								</li>
-								<li class="active">
-									<a href="#">1</a>
-								</li>
-								<li>
-									<a href="#">2</a>
-								</li>
-								<li>
-									<a href="#">3</a>
-								</li>
-								<li>
-									<a href="#">4</a>
-								</li>
-								<li>
-									<a href="#">5</a>
-								</li>
-								<li class="dotted"><span>...</span></li>
-								<li class="next">
-									<a href="#">下一页»</a>
-								</li>
-							</ul>
-							<div><span>共10页&nbsp;</span></div>
-						</div>
-					</div>
+					<!-- 分页组件
+							需要四个参数：
+								1.当前页码
+								2.总条数
+								3.每页条数
+								4.连续数
+					 -->
+					<Pagination
+						:currentPage="searchParams.pageNo"
+						:total="total"
+						:pageSize="searchParams.pageSize"
+						:cpntinueNum="5"
+						@changePage="changePage"
+					></Pagination>
 				</div>
 			</div>
 		</div>
@@ -151,7 +146,7 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
+	import { mapGetters, mapState } from "vuex";
 	import SearchSelector from "./SearchSelector/SearchSelector";
 	export default {
 		name: "Search",
@@ -162,6 +157,8 @@
 			return {
 				//初始化搜索参数
 				searchParams: {
+					category1Id: "",
+					category2Id: "",
 					category3Id: "",
 					categoryName: "",
 					keyword: "",
@@ -169,20 +166,29 @@
 					props: [],
 					order: "1:desc",
 					pageNo: 1,
-					pageSize: 10,
+					pageSize: 5,
 				},
 			};
 		},
 		computed: {
 			//将 store 中的 getters 映射当 组件中
 			...mapGetters(["goodsList"]),
+			...mapState({
+				total:state => state.search.goodsListInfo.total
+			}),
+			sortRule() {
+				return this.searchParams.order.split(":")[0];
+			},
+			sortType() {
+				return this.searchParams.order.split(":")[1];
+			},
 		},
 		watch: {
 			//监视路由对象，当路径发生变化时路由对象也会变化，当路由对象变化时重新解析路由参数，重新发请求
 			$route: {
 				handler() {
 					this.parseSearchParams();
-					this.getGoodsListInfo();
+					this.getGoodsAndUpdatePage();
 				},
 			},
 		},
@@ -190,6 +196,11 @@
 			//调用 dispatch 发送请求获取数据 的方法
 			getGoodsListInfo() {
 				this.$store.dispatch("getGoodsListInfo", this.searchParams);
+			},
+			//当用户搜索条件发生变化时将当前页码更新为 1 ，然后发送请求获取最新数据
+			getGoodsAndUpdatePage(){
+				this.searchParams.pageNo = 1
+				this.getGoodsListInfo()
 			},
 			//用来解析搜索参数的方法
 			parseSearchParams() {
@@ -240,12 +251,12 @@
 				//修改 搜索参数 中的 trademark 字段
 				this.searchParams.trademark = `${tm.tmId}:${tm.tmName}`;
 				//重新发送请求
-				this.getGoodsListInfo();
+				this.getGoodsAndUpdatePage();
 			},
 			//删除品牌面包屑事件回调
 			removeTrademark() {
 				this.searchParams.trademark = undefined;
-				this.getGoodsListInfo();
+				this.getGoodsAndUpdatePage();
 			},
 			//自定义事件，根据商品属性搜索商品事件回调
 			searchForProp(attrValue, attr) {
@@ -263,13 +274,34 @@
 				//如果不重复，修改搜索参数
 				this.searchParams.props.push(prop);
 				//发送请求搜索商品
-				this.getGoodsListInfo();
+				this.getGoodsAndUpdatePage();
 			},
 			//删除属性面包屑事件回调
 			removeProp(index) {
 				this.searchParams.props.splice(index, 1);
-				this.getGoodsListInfo();
+				this.getGoodsAndUpdatePage();
 			},
+			// 排序按钮点击事件回调
+			changeSort(rule){
+				let newOrder = ''
+				//如果用户点击是当前的排序规则，则切换升序降序
+				if(rule === this.sortRule){
+					newOrder = `${rule}:${this.sortType === 'asc' ? 'desc' : 'asc'}`
+				}else{  //如果用户点击的是新的排序规则，则将规则切换成用户点击的，并将排序类型切换成默认的降序
+					newOrder = `${rule}:desc`
+				}
+				//修改搜索参数
+				this.searchParams.order = newOrder
+				//重新发送请求
+				this.getGoodsAndUpdatePage()
+			},
+			changePage(page){
+				if(this.searchParams.pageNo === page){
+					return
+				}
+				this.searchParams.pageNo = page
+				this.getGoodsListInfo()
+			}
 		},
 		//在这个钩子中解析路由参数并修改搜索参数里的数据，方便 mounted 中发送请求获取数据
 		beforeMount() {

@@ -16,6 +16,8 @@ import TypeNav from '@/components/TypeNav'
 Vue.component(TypeNav.name, TypeNav)
 import Banner from '@/components/Banner'
 Vue.component(Banner.name, Banner)
+import Pagination from '@/components/Pagination'
+Vue.component('Pagination',Pagination)
 
 Vue.config.productionTip = false
 
