@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-04-12 18:22:49
- * @LastEditTime: 2021-04-12 18:40:12
- * @LastEditors: Please set LastEditors
- * @Description: vuex 核心文件
- * @FilePath: \gulishop-client\src\store\index.js
- */
 //引入 vue 核心库
 import vue from 'vue'
 //引入 vuex
@@ -14,7 +6,10 @@ import Vuex from 'vuex'
 import home from './home'
 //引入 search 的 store 对象
 import search from './search'
-
+//引入 detail 的 store 对象
+import detail from './detail'
+//引入 shopcart 的 store 对象
+import shopcart from './shopcart'
 //声明使用 vuex
 vue.use(Vuex)
 
@@ -34,7 +29,9 @@ const store = new Vuex.Store({
     actions,
     modules:{
         home,
-        search
+        search,
+        detail,
+        shopcart
     }
 })
 

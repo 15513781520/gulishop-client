@@ -22,14 +22,14 @@ export const reqCategoryList = () => {
 //mock 模拟请求轮播图数据
 //url: /mock/banner
 //get
-export const reqBannerList = function(){
+export const reqBannerList = function () {
     return mockAxios.get('/banner')
 }
 
 //mock 模拟请求楼层数据
 //url: /mock/floor
 //get
-export const reqFloorList = function(){
+export const reqFloorList = function () {
     return mockAxios.get('/floor')
 }
 
@@ -38,8 +38,28 @@ export const reqFloorList = function(){
 // post
 export const reqGoodsListInfo = (searchParams) => {
     return axios({
-        method:'post',
-        url:'/list',
-        data:searchParams
+        method: 'post',
+        url: '/list',
+        data: searchParams
+    })
+}
+
+//获取商品详情
+//url : /api/item/{ skuId }
+// get
+export const reqGoodsDetailInfo = (skuId) => {
+    return axios({
+        method: 'get',
+        url: `/item/${ skuId }`
+    })
+}
+
+//添加 / 更新 购物车
+// url：/api/cart/addToCart/{ skuId }/{ skuNum }
+// post
+export const reqAddOrUpdateShopCart = (skuId, skuNum) => {
+    return axios({
+        method: 'post',
+        url: `/cart/addToCart/${ skuId }/${ skuNum }`
     })
 }

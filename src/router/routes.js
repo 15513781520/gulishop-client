@@ -11,6 +11,7 @@ import Register from '@/pages/Register'
 import Login from '@/pages/Login'
 import Search from '@/pages/Search'
 import Detail from '@/pages/Detail'
+import AddCartSuccess from '@/pages/AddCartSuccess'
 
 
 export default [{
@@ -45,6 +46,10 @@ export default [{
     {
         path:'/detail/:skuId',
         component:Detail
+    },
+    {
+        path:'/addcartsuccess',
+        component:AddCartSuccess
     },
     {
         path: '/',
