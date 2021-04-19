@@ -43,7 +43,7 @@ export default [{
         }
     },
     {
-        path:'/detail/:goodsId',
+        path:'/detail/:skuId',
         component:Detail
     },
     {
