@@ -17,10 +17,11 @@
 					</div>
 				</div>
 				<div class="right-gocart">
-					<a href="javascript:" class="sui-btn btn-xlarge" @click="$router.back()"
+					<a href="javascript:;" class="sui-btn btn-xlarge" @click="$router.back()"
 						>查看商品详情</a
 					>
-					<a href="javascript:">去购物车结算 > </a>
+					<!-- 点击去购物车结算按钮，跳转到购物车界面 -->
+					<router-link to="shopcart">去购物车结算 > </router-link>
 				</div>
 			</div>
 		</div>

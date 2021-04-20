@@ -12,6 +12,7 @@ import Login from '@/pages/Login'
 import Search from '@/pages/Search'
 import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
+import ShopCart from '@/pages/ShopCart'
 
 
 export default [{
@@ -50,6 +51,10 @@ export default [{
     {
         path:'/addcartsuccess',
         component:AddCartSuccess
+    },
+    {
+        path:'/shopcart',
+        component:ShopCart
     },
     {
         path: '/',

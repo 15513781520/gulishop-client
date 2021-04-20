@@ -63,3 +63,57 @@ export const reqAddOrUpdateShopCart = (skuId, skuNum) => {
         url: `/cart/addToCart/${ skuId }/${ skuNum }`
     })
 }
+
+//获取购物车信息
+//url：/api/cart/cartList
+// get
+export const reqShopCartList = () => {
+    return axios({
+        method:'get',
+        url:'/cart/cartList'
+    })
+}
+
+//修改单个商品选中状态
+//url：/api/cart/checkCart/{skuID}/{isChecked}
+// get
+export const reqChangeOneCheck = (skuId,isChecked) => {
+    return axios({
+        method:'get',
+        url:`/cart/checkCart/${skuId}/${isChecked}`
+    })
+}
+
+//批量更改购物车选中状态
+//url：/api/cart/batchCheckCart/{isChecked}
+//参数；isChecked：params参数    skuIds：body参数
+//post
+export const reqChangeMoreCheck = (isChecked,skuIds) => {
+    return axios({
+        method:'post',
+        url:`/cart/batchCheckCart/${isChecked}`,
+        data:skuIds
+    })
+}
+
+//删除单个购物车商品
+//url：/api/cart/deleteCart/{skuId}
+// delete
+export const reqDeleteOneSku = (skuId) => {
+    return axios({
+        method:'delete',
+        url:`/cart/deleteCart/${skuId}`
+    })
+}
+
+//删除多个已选中商品
+//url：/api/cart/batchDeleteCart
+//参数：skuIds： 要删除的购物车商品的id组成的数组，请求体参数
+// delete
+export const reqDeleteMoreSku = (skuIds) => {
+    return axios({
+        method:'delete',
+        url:'/cart/batchDeleteCart',
+        data:skuIds
+    })
+}

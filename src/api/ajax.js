@@ -12,17 +12,21 @@ import axios from 'axios'
 import Nprogress from 'nprogress'
 //引入 nprogress 样式表
 import 'nprogress/nprogress.css'
+//引入 vuex 的 store 对象
+import store from '@/store'
 
 //使用 axios 创建并配置一个新的 axios 实例对象 
 const service = axios.create({
-    baseURL:'/api', //配置基础路径,地址不写默认请求本地服务器
-    timeout:20000, //配置超时时间
+    baseURL: '/api', //配置基础路径,地址不写默认请求本地服务器
+    timeout: 20000, //配置超时时间
 })
 
 //设置请求拦截器，在请求拦截器中开启进度条 请求拦截器失败的回调一般不写，因为没有意义
-service.interceptors.request.use((config) => { 
+service.interceptors.request.use((config) => {
     //开启进度条
     Nprogress.start()
+    //将用户的临时身份标识添加到请求头中
+    config.headers.userTempId = store.state.user.userTempId
     //将 config 返回
     return config
 })
@@ -33,7 +37,7 @@ service.interceptors.response.use((response) => {
     Nprogress.done()
     //将请求回来的的数据返回
     return response.data
-},(error) => {
+}, (error) => {
     //关闭进度条
     Nprogress.done()
     //统一处理错误

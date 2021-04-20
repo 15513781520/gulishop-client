@@ -10,6 +10,9 @@ import search from './search'
 import detail from './detail'
 //引入 shopcart 的 store 对象
 import shopcart from './shopcart'
+//引入 user 的 store 对象
+import user from './user'
+
 //声明使用 vuex
 vue.use(Vuex)
 
@@ -31,7 +34,8 @@ const store = new Vuex.Store({
         home,
         search,
         detail,
-        shopcart
+        shopcart,
+        user
     }
 })
 
