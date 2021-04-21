@@ -25,8 +25,9 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
     //开启进度条
     Nprogress.start()
+    const {userTempId} = store.state.user
     //将用户的临时身份标识添加到请求头中
-    config.headers.userTempId = store.state.user.userTempId
+    if(userTempId) config.headers.userTempId = userTempId
     //将 config 返回
     return config
 })

@@ -35,7 +35,7 @@
 						</div>
 					</li>
 					<li class="cart-list-con4">
-						<span class="price">{{ cartInfo.skuPrice }}</span>
+						<span class="price">{{ cartInfo.skuPrice.toFixed(2) }}</span>
 					</li>
 					<li class="cart-list-con5">
 						<a href="javascript:;" class="mins" @click="changeSkuNum(cartInfo,-1)">-</a>
@@ -51,7 +51,7 @@
 					</li>
 					<li class="cart-list-con6">
 						<span class="sum">{{
-							cartInfo.skuPrice * cartInfo.skuNum
+							(cartInfo.skuPrice * cartInfo.skuNum).toFixed(2)
 						}}</span>
 					</li>
 					<li class="cart-list-con7">
@@ -81,7 +81,7 @@
 				</div>
 				<div class="sumprice">
 					<em>总价（不含运费） ：</em>
-					<i class="summoney">{{ totalPrice }}</i>
+					<i class="summoney">{{ totalPrice.toFixed(2) }}</i>
 				</div>
 				<div class="sumbtn">
 					<a class="sum-btn" href="###" target="_blank">结算</a>
