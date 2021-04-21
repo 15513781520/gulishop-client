@@ -117,3 +117,56 @@ export const reqDeleteMoreSku = (skuIds) => {
         data:skuIds
     })
 }
+
+//获取验证码
+//url：/api/user/passport/sendCode/{phone}
+// get
+export const reqGetCode = (phone) => {
+    return axios({
+        method:'get',
+        url:`/user/passport/sendCode/${phone}`
+    })
+}
+
+//用户注册
+//url：/api/user/passport/register
+// post
+//参数 ：手机号，密码，验证码
+export const reqUserRegister = (registerInfo) => {
+    return axios({
+        method:'post',
+        url:'/user/passport/register',
+        data:registerInfo
+    })
+}
+
+//用户登录,登录成功后返回且只会返回一个 token 用与 用户登录后的身份标识
+//url：/api/user/passport/login
+// post  参数：手机号、密码 请求体参数
+export const reqUserLogin = (loginInfo) => {
+    return axios({
+        method:'post',
+        url:'/user/passport/login',
+        data:loginInfo
+    })
+}
+
+//获取用户信息
+//url：/api/user/passport/auth/getUserInfo
+// get
+export const reqGetUserInfo = () => {
+    return axios({
+        method:'get',
+        url:'/user/passport/auth/getUserInfo'
+    })
+}
+
+//用户退出登录
+//url：/api/user/passport/logout
+// get
+export const reqUserLogout = () => {
+    return axios({
+        method:'get',
+        url:'/user/passport/logout'
+    })
+}

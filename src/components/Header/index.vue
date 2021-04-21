@@ -14,7 +14,13 @@
 			<div class="container">
 				<div class="loginList">
 					<p>尚品汇欢迎您！</p>
-					<p>
+					<p v-if="userInfo.name" >
+						<span>尊敬的：</span>
+						<img style="width:26px;vertical-align: middle;margin-top:-3px" src="~@/assets/images/头像.png" alt="">
+						<a href="javascript:;">{{ ' '+userInfo.name}}</a> | 
+						<a href="javascript:;" @click="userLogout">退出登录</a>
+					</p>
+					<p v-else>
 						<span>请</span>
 						<router-link to="/login">登录</router-link>
 						<router-link to="register" class="register"
@@ -63,12 +69,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 	export default {
 		name: "Header",
 		data() {
 			return {
 				keyword: "",
 			};
+		},
+		computed:{
+			...mapState({
+				userInfo:state => state.user.userInfo
+			})
 		},
 		methods: {
 			toSearch() {
@@ -90,6 +102,15 @@
 					this.$router.replace(location);
 				}
 			},
+			async userLogout(){
+				try {
+					await this.$store.dispatch('userLogout')
+					alert('退出登录成功')
+					this.$router.replace(this.$route.path)
+				} catch (error) {
+					alert('退出登录失败')
+				}
+			}
 		},
 		mounted(){
 			//给 全局事件总线 绑定事件,事件被触发时，将输入框清空(因为输入框和keyword属性双向绑定了，所以清空输入框就是讲keyword属性赋值为空串)
