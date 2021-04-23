@@ -11,7 +11,8 @@ const state = {
     //state 初始化时 先向 localStorage 中读取
     token:localStorage.getItem('TOKEN_KEY'),
     //初始化 用户信息
-    userInfo:{}
+    userInfo:{},
+    beforeLoginPath:""
 }
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
     RESET_TOKEN(state){
         state.token = ''
         state.userInfo = {}
+    },
+    RECEIVE_BEFORELOGINPATH(state,beforeLoginPath){
+        state.beforeLoginPath = beforeLoginPath
     }
 }
 
@@ -91,6 +95,9 @@ const actions = {
         }else{
             return Promise.reject(new Error('失败'))
         }
+    },
+    async saveBeforeLoginPath({commit},path){
+        commit('RECEIVE_BEFORELOGINPATH',path)
     }
 }
 

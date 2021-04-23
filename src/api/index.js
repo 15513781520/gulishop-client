@@ -170,3 +170,64 @@ export const reqUserLogout = () => {
         url:'/user/passport/logout'
     })
 }
+
+//获取订单交易页信息
+// url：/api/order/auth/trade
+//get
+export const reqGetTradeInfo = () => {
+    return axios({
+        method:"get",
+        url:"/order/auth/trade"
+    })
+}
+
+//获取用户的地址信息
+//URL：/api/user/userAddress/auth/findUserAddressList
+// get
+export const reqGetAddressList = () => {
+    return axios({
+        method:'get',
+        url:"/user/userAddress/auth/findUserAddressList"
+    })
+}
+
+//提交订单
+//url：/api/order/auth/submitOrder?tradeNo={tradeNo}
+// post
+export const reqSubmitOrder = (tradeNo,tradeInfo) => {
+    return axios({
+        method:'post',
+        url:`/order/auth/submitOrder?tradeNo=${tradeNo}`,
+        data:tradeInfo
+    })
+}
+
+//获取订单支付信息
+// /api/payment/weixin/createNative/{orderId}
+// get
+export const reqGetPayInfo = (orderId) => {
+    return axios({
+        method:'get',
+        url:`/payment/weixin/createNative/${orderId}`,
+    })
+}
+
+//查询订单支付状态
+//url：/api/payment/weixin/queryPayStatus/{orderId}
+// get
+export const reqGetPayStatus = (orderId) => {
+    return axios({
+        method:'get',
+        url:`/payment/weixin/queryPayStatus/${orderId}`
+    })
+}
+
+//获取我的订单列表
+//url:/api/order/auth/{page}/{limit}
+// get
+// export const reqGetUserOrderList = (page,limit) => {
+//     return axios({
+//         method:'get',
+//         url:`/order/auth/${page}/${limit}`
+//     })
+// }

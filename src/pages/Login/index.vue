@@ -96,8 +96,13 @@
 					//手机号密码验证通过发送登录请求
 					try {
 						await this.$store.dispatch('userLogin',{phone,password})
-						alert('登录成功，准备跳转到首页')
-						this.$router.push('/')
+						const {beforeLoginPath} = this.$store.state.user
+						if(beforeLoginPath){
+							this.$router.replace(beforeLoginPath)
+							this.$store.dispatch('saveBeforeLoginPath','')
+						}else{
+							this.$router.replace('/')
+						}
 					} catch (error) {
 						alert('登录失败')
 					}

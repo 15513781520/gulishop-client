@@ -85,8 +85,17 @@ router.beforeEach(async (to,from,next) => {
             }
         }
     }else{
-        //如果 token 不存在，代表用户没有登录，暂时无条件放行
-        next()
+        //声明一个包含 需要用户登录后才有权限访问的页面路径数组
+        const pathArr = ['/trade','/pay','/paysuccess','/center']
+        //判断用户要访问的是不是需要权限的
+        if(!pathArr.includes(to.path)){
+            //如果 token 不存在，代表用户没有登录，且访问的不是需要权限的页面，无条件放行
+            next()
+        }else{
+            //如果访问的是有权限的页面，强制跳转到登录页让用户登录
+            store.dispatch('saveBeforeLoginPath',to.path)
+            next('/login')
+        }
     }
 })
 
